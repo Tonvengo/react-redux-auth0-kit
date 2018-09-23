@@ -1,28 +1,43 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Button, AppBar, Toolbar, Avatar, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import * as AuthService from '../../utils/AuthService';
-import './Header.css';
+
+const styles = {
+  root: {
+    flexGrow: 1,
+  },
+  flex: {
+    flex: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+  avatar: {
+    marginTop: 5,
+    marginRight: 10,
+    marginLeft: 10,
+    width: 33,
+    height: 33,
+  },
+  row: {
+    display: 'flex',
+    justifyContent: 'top',
+  },
+};
 
 class HeaderView extends Component {
-  static propTypes = {
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired
-    }).isRequired,
-    auth: PropTypes.shape({
-      isAuthenticated: PropTypes.bool.isRequired,
-      profile: PropTypes.object,
-      error: PropTypes.object
-    }).isRequired,
-    loginRequest: PropTypes.func.isRequired,
-    logoutSuccess: PropTypes.func.isRequired
-  };
 
   handleLoginClick = () => {
     AuthService.login();
     this.props.loginRequest();
   };
+
+  handleHomeClick = () => {
+    this.props.history.push({pathname: '/'});
+  }
 
   handleLogoutClick = () => {
     this.props.logoutSuccess();
@@ -31,31 +46,31 @@ class HeaderView extends Component {
   };
 
   render() {
-    const { auth } = this.props;
+    const { auth, classes } = this.props;
+    const props = this.props;
+    
     return (
-      <div>
-        <h1>React Redux Auth0 Kit</h1>
-        <ul className="list-inline">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-        </ul>
+      <div className={props.classes.root}>
+        <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
+          <Toolbar>
+            <Typography onClick={this.handleHomeClick} variant="title" color="primary" className={props.classes.flex}>
+            Predictor
+            </Typography>
         {auth.isAuthenticated ? (
-          <div>
-            <img src={auth.profile.picture} height="40px" alt="profile" />
-            <span>Welcome, {auth.profile.nickname}</span>
-            <button onClick={this.handleLogoutClick}>Logout</button>
+          <div className={classes.row}>
+            <Avatar alt="profile" src={auth.profile.picture} className={classes.avatar} />
+            {/* <span style={{color:"blue"}}>{auth.profile.nickname}</span> */}
+            <Button variant="outlined" color="primary" onClick={this.handleLogoutClick}>Logout</Button>
           </div>
         ) : (
-          <button onClick={this.handleLoginClick}>Login</button>
+          <Button variant="outlined" color="primary" onClick={this.handleLoginClick}>Login</Button>
         )}
         {auth.error && <p>{JSON.stringify(auth.error)}</p>}
+        </Toolbar>
+        </AppBar>
       </div>
     );
   }
 }
 
-export default HeaderView;
+export default withStyles(styles)(HeaderView);
