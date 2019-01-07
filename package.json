@@ -21,22 +21,22 @@
     "url": "https://github.com/amaurymartiny/react-redux-auth0-kit/issues"
   },
   "dependencies": {
-    "@material-ui/core": "^3.1.0",
+    "@material-ui/core": "^3.8.1",
     "@material-ui/icons": "^3.0.1",
-    "auth0-lock": "11.9.1",
+    "auth0-lock": "11.12.1",
     "jwt-decode": "2.2.0",
     "prop-types": "15.6.2",
-    "react": "16.5.2",
-    "react-dom": "16.5.2",
-    "react-redux": "5.0.7",
+    "react": "16.7.0",
+    "react-dom": "16.7.0",
+    "react-redux": "6.0.0",
     "react-router-dom": "4.3.1",
-    "redux": "4.0.0"
+    "redux": "4.0.1"
   },
   "devDependencies": {
-    "enzyme": "3.6.0",
-    "enzyme-adapter-react-16": "1.5.0",
-    "jest-localstorage-mock": "2.2.0",
-    "react-scripts": "1.1.5"
+    "enzyme": "3.8.0",
+    "enzyme-adapter-react-16": "1.7.1",
+    "jest-localstorage-mock": "2.4.0",
+    "react-scripts": "2.1.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -45,5 +45,11 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint src/"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
